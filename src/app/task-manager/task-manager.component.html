@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Quản lí công việc</h1>
+<h2>Thêm mới công việc</h2>
+<form (ngSubmit)="onSubmit()">
+    <label for="taskName">Tên công việc:</label>
+    <input type="text" id="taskName" name="taskName" [(ngModel)]="newTask.name" required pattern="[A-Za-z]+">
+    <br>
+    <label for="taskContent">Nội dung:</label>
+    <textarea id="taskContent" name="taskContent" [(ngModel)]="newTask.content" required></textarea>
+    <br>
+    <label for="category">Danh mục:</label>
+    <select id="category" name="category" [(ngModel)]="newTask.category" required>
+      <option value="">--Chọn danh mục--</option>
+      <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+    </select><br>
+    <input type="checkbox">Công việc đã hoàn thành<br>
+    
+    <button type="submit">Thêm công việc</button>
+    <button type="button" (click)="resetForm()">Reset</button>
+  </form>
+  
+  <!-- Bảng danh sách công việc -->
+  <table>
+    <thead>
+      <tr>
+        <th>Tên công việc</th>
+        <th>Nội dung</th>
+        <th>Thời gian</th>
+        <th>Danh mục</th>
+        <th>Xóa</th>
+        <th>Hoàn thành</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{task.name}}</td>
+        <td>{{task.content}}</td>
+        <td>{{task.time}}</td>
+        <td>{{task.category}}</td>
+        <td><a href="#" (click)="onDeleteTask(task)">Xóa</a></td>
+        <td><input type="checkbox" [checked]="task.completed" (change)="onTaskCompleted(task)"></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html><!-- Form thêm mới công việc -->
+
